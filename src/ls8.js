@@ -2,6 +2,7 @@ const fs = require('fs');
 const RAM = require('./ram');
 const CPU = require('./cpu');
 
+
 /**
  * Process a loaded file
  */
@@ -12,22 +13,35 @@ function processFile(content, cpu, onComplete) {
     
     // Split the lines of the content up by newline
     const lines = content.split('\n');
-
+    
     // Loop through each line of machine code
-
+    
     for (let line of lines) {
-
+        
         // !!! IMPLEMENT ME
-
+        
         // Strip comments
+        //Find #
+        let hashIndex = line.indexOf('#');
 
+        if (hashIndex !== -1) {
+            line = line.substr(0, hashIndex);
+        }
+        
         // Remove whitespace from either end of the line
-
+        line = line.trim();
+        
+        
         // Ignore empty lines
-
+        if (line.length === 0) {
+            continue;
+        }
+        
         // Convert from binary string to numeric value
-
+        let binaryConvert = parseInt(line, 2); //this sets it to binary
+        
         // Store in the CPU with the .poke() function
+        cpu.poke(curAddr, binaryConvert)
 
         // And on to the next one
         curAddr++;
